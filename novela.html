@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulos de la novela</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .chapter-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .chapter {
+            padding: 18px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px #0001;
+        }
+
+        .chapter:hover {
+            background: #eaf0ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <a href="index.html" class="back">← Volver a novelas</a>
+
+        <h1 id="novel-title">Cargando novela...</h1>
+
+        <p id="chapter-count"></p>
+
+        <section id="chapter-list" class="chapter-list"></section>
+
+    </main>
+
+    <script>
+
+        const novelTitle = document.getElementById("novel-title");
+        const chapterCount = document.getElementById("chapter-count");
+        const chapterList = document.getElementById("chapter-list");
+
+        // Get novel name from URL
+        const params = new URLSearchParams(window.location.search);
+        const novelName = params.get("novel");
+
+        async function loadNovel() {
+
+            try {
+
+                const response = await fetch("novelas.json");
+                const novels = await response.json();
+
+                // Find selected novel
+                const novel = novels.find(item => item.name === novelName);
+
+                if (!novel) {
+                    novelTitle.textContent = "Novela no encontrada";
+                    return;
+                }
+
+                // Display novel information
+                novelTitle.textContent = novel.name;
+
+                chapterCount.textContent =
+                    `${novel.chapters.length} capítulos`;
+
+                // Display chapters
+                novel.chapters.forEach((chapter, index) => {
+
+                    const card = document.createElement("article");
+                    card.className = "chapter";
+
+                    const title = document.createElement("h3");
+                    title.textContent = chapter.name;
+
+                    card.appendChild(title);
+
+                    card.addEventListener("click", () => {
+                        window.location.href =
+                            `capitulo.html?novel=${encodeURIComponent(novel.name)}&chapter=${encodeURIComponent(chapter.name)}`;
+                    });
+
+                    chapterList.appendChild(card);
+
+                });
+
+            } catch (error) {
+
+                console.error(error);
+                novelTitle.textContent = "Error al cargar la novela";
+
+            }
+
+        }
+
+        loadNovel();
+
+    </script>
+
+</body>
+</html>

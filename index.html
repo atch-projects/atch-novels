@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de novelas</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #novels-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .novel-card {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #0001;
+        }
+
+        .novel-card h2 {
+            font-size: 18px;
+            margin-top: 0;
+        }
+
+        .novel-card p {
+            color: #666;
+        }
+
+        .novel-card button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .novel-card button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Biblioteca de novelas</h1>
+
+    <main id="novels-container">
+        Cargando novelas...
+    </main>
+
+    <script>
+        const novelsContainer = document.getElementById("novels-container");
+
+        async function loadNovels() {
+
+            try {
+
+                const response = await fetch("novelas.json");
+
+                if (!response.ok) {
+                    throw new Error("No se pudo cargar el JSON");
+                }
+
+                const novels = await response.json();
+
+                novelsContainer.innerHTML = "";
+
+                novels.forEach(novel => {
+
+                    const card = document.createElement("article");
+                    card.className = "novel-card";
+
+                    const title = document.createElement("h2");
+                    title.textContent = novel.name;
+
+                    const chapters = document.createElement("p");
+                    chapters.textContent = `${novel.chapters.length} capítulos`;
+
+                    const button = document.createElement("button");
+                    button.textContent = "Ver capítulos";
+
+                    button.addEventListener("click", () => {
+                        window.location.href = `novela.html?novel=${encodeURIComponent(novel.name)}`;
+                    });
+
+                    card.append(title, chapters, button);
+
+                    novelsContainer.appendChild(card);
+
+                });
+
+                if (novels.length === 0) {
+                    novelsContainer.textContent = "No hay novelas disponibles.";
+                }
+
+            } catch (error) {
+
+                console.error(error);
+                novelsContainer.textContent = "Error al cargar las novelas.";
+
+            }
+        }
+
+        loadNovels();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leer capítulo</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        /* Back button */
+        .back {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        /* Chapter title */
+        h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* Chapter content */
+        #chapter-content {
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            font-size: 18px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            box-shadow: 0 2px 8px #0001;
+        }
+
+        /* Chapter navigation */
+        .chapter-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .chapter-navigation button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .chapter-navigation button:hover:not(:disabled) {
+            background: #1d4ed8;
+        }
+
+        .chapter-navigation button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            #chapter-content {
+                padding: 20px;
+                font-size: 16px;
+            }
+
+            .chapter-navigation button {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- Back to chapters -->
+        <a id="back-link" href="index.html" class="back">
+            ← Volver a capítulos
+        </a>
+
+        <!-- Chapter title -->
+        <h1 id="chapter-title">Cargando capítulo...</h1>
+
+
+        <!-- TOP NAVIGATION -->
+        <nav class="chapter-navigation">
+
+            <button class="previous-chapter" disabled>
+                ← Capítulo anterior
+            </button>
+
+            <button class="next-chapter" disabled>
+                Capítulo siguiente →
+            </button>
+
+        </nav>
+
+
+        <!-- Chapter content -->
+        <article id="chapter-content"></article>
+
+
+        <!-- BOTTOM NAVIGATION -->
+        <nav class="chapter-navigation">
+
+            <button class="previous-chapter" disabled>
+                ← Capítulo anterior
+            </button>
+
+            <button class="next-chapter" disabled>
+                Capítulo siguiente →
+            </button>
+
+        </nav>
+
+    </main>
+
+
+    <script>
+
+        // =========================
+        // ELEMENTS
+        // =========================
+
+        const chapterTitle = document.getElementById("chapter-title");
+        const chapterContent = document.getElementById("chapter-content");
+        const backLink = document.getElementById("back-link");
+
+        const previousButtons =
+            document.querySelectorAll(".previous-chapter");
+
+        const nextButtons =
+            document.querySelectorAll(".next-chapter");
+
+
+        // =========================
+        // URL PARAMETERS
+        // =========================
+
+        const params = new URLSearchParams(window.location.search);
+
+        const novelName = params.get("novel");
+        const chapterName = params.get("chapter");
+
+
+        // =========================
+        // VARIABLES
+        // =========================
+
+        let currentNovel;
+        let currentChapterIndex;
+
+
+        // =========================
+        // LOAD CHAPTER
+        // =========================
+
+        async function loadChapter() {
+
+            try {
+
+                const response = await fetch("novelas.json");
+
+                if (!response.ok) {
+                    throw new Error("No se pudo cargar novelas.json");
+                }
+
+                const novels = await response.json();
+
+
+                // Find novel
+                currentNovel = novels.find(
+                    item => item.name === novelName
+                );
+
+                if (!currentNovel) {
+                    chapterTitle.textContent = "Novela no encontrada";
+                    chapterContent.textContent = "";
+                    return;
+                }
+
+
+                // Find chapter index
+                currentChapterIndex = currentNovel.chapters.findIndex(
+                    item => item.name === chapterName
+                );
+
+                if (currentChapterIndex === -1) {
+                    chapterTitle.textContent = "Capítulo no encontrado";
+                    chapterContent.textContent = "";
+                    return;
+                }
+
+
+                // Back to novel chapters
+                backLink.href =
+                    `novela.html?novel=${encodeURIComponent(currentNovel.name)}`;
+
+
+                // Display chapter
+                displayChapter();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                chapterTitle.textContent = "Error al cargar el capítulo";
+
+                chapterContent.textContent =
+                    "No se pudo cargar el contenido.";
+
+            }
+
+        }
+
+
+        // =========================
+        // DISPLAY CHAPTER
+        // =========================
+
+        function displayChapter() {
+
+            const chapter =
+                currentNovel.chapters[currentChapterIndex];
+
+
+            // Display title and content
+            chapterTitle.textContent = chapter.name;
+            chapterContent.textContent = chapter.content;
+
+
+            // Update URL
+            const url = new URL(window.location);
+
+            url.searchParams.set("chapter", chapter.name);
+
+            history.replaceState(null, "", url);
+
+
+            // Update navigation
+            updateNavigation();
+
+        }
+
+
+        // =========================
+        // UPDATE NAVIGATION
+        // =========================
+
+        function updateNavigation() {
+
+            const isFirstChapter =
+                currentChapterIndex === 0;
+
+            const isLastChapter =
+                currentChapterIndex === currentNovel.chapters.length - 1;
+
+
+            // Synchronize previous buttons
+            previousButtons.forEach(button => {
+                button.disabled = isFirstChapter;
+            });
+
+
+            // Synchronize next buttons
+            nextButtons.forEach(button => {
+                button.disabled = isLastChapter;
+            });
+
+        }
+
+
+        // =========================
+        // PREVIOUS CHAPTER
+        // =========================
+
+        previousButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                if (currentChapterIndex > 0) {
+
+                    currentChapterIndex--;
+
+                    displayChapter();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                }
+
+            });
+
+        });
+
+
+        // =========================
+        // NEXT CHAPTER
+        // =========================
+
+        nextButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                if (currentChapterIndex < currentNovel.chapters.length - 1) {
+
+                    currentChapterIndex++;
+
+                    displayChapter();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                }
+
+            });
+
+        });
+
+
+        // =========================
+        // INITIALIZE
+        // =========================
+
+        loadChapter();
+
+    </script>
+
+</body>
+
+</html>
