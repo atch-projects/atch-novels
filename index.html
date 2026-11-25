@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de novelas</title>
+    <title>Novel Library</title>
 
     <style>
         * {
@@ -32,10 +32,22 @@
         }
 
         .novel-card {
-            padding: 20px;
+            overflow: hidden;
             background: white;
             border-radius: 10px;
             box-shadow: 0 2px 8px #0001;
+        }
+
+        .novel-card img {
+            display: block;
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .novel-info {
+            padding: 20px;
         }
 
         .novel-card h2 {
@@ -72,26 +84,50 @@
     </main>
 
     <script>
+
         const novelsContainer = document.getElementById("novels-container");
+
+        // =========================
+        // LOAD NOVELS
+        // =========================
 
         async function loadNovels() {
 
             try {
 
-                const response = await fetch("novelas.json");
+                const response = await fetch("database.json");
 
                 if (!response.ok) {
-                    throw new Error("No se pudo cargar el JSON");
+                    throw new Error("No se pudo cargar database.json");
                 }
 
                 const novels = await response.json();
 
                 novelsContainer.innerHTML = "";
 
+                // =========================
+                // CREATE NOVEL CARDS
+                // =========================
+
                 novels.forEach(novel => {
 
                     const card = document.createElement("article");
                     card.className = "novel-card";
+
+                    // Cover image
+                    const image = document.createElement("img");
+
+                    image.alt = novel.name;
+
+                    if (novel.image) {
+                        image.src = `novels/${encodeURIComponent(novel.name)}/${encodeURIComponent(novel.image)}`;
+                    } else {
+                        image.src = "https://placehold.co/400x550?text=No+Cover";
+                    }
+
+                    // Novel information
+                    const info = document.createElement("div");
+                    info.className = "novel-info";
 
                     const title = document.createElement("h2");
                     title.textContent = novel.name;
@@ -99,19 +135,31 @@
                     const chapters = document.createElement("p");
                     chapters.textContent = `${novel.chapters.length} capítulos`;
 
+                    // Button
                     const button = document.createElement("button");
                     button.textContent = "Ver capítulos";
 
                     button.addEventListener("click", () => {
-                        window.location.href = `novela.html?novel=${encodeURIComponent(novel.name)}`;
+
+                        window.location.href =
+                            `novela.html?novel=${encodeURIComponent(novel.name)}`;
+
                     });
 
-                    card.append(title, chapters, button);
+                    info.append(title, chapters, button);
+
+                    card.append(image, info);
 
                     novelsContainer.appendChild(card);
 
+                    // Handle missing images
+                    image.onerror = () => {
+                        image.src = "https://placehold.co/400x550?text=No+Cover";
+                    };
+
                 });
 
+                // Empty library
                 if (novels.length === 0) {
                     novelsContainer.textContent = "No hay novelas disponibles.";
                 }
@@ -119,12 +167,18 @@
             } catch (error) {
 
                 console.error(error);
+
                 novelsContainer.textContent = "Error al cargar las novelas.";
 
             }
         }
 
+        // =========================
+        // INITIALIZE
+        // =========================
+
         loadNovels();
+
     </script>
 
 </body>

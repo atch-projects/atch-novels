@@ -198,10 +198,10 @@
 
             try {
 
-                const response = await fetch("novelas.json");
+                const response = await fetch("database.json");
 
                 if (!response.ok) {
-                    throw new Error("No se pudo cargar novelas.json");
+                    throw new Error("No se pudo cargar database.json");
                 }
 
                 const novels = await response.json();

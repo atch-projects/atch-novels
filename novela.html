@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capítulos de la novela</title>
+    <title>Novel Chapters</title>
 
     <style>
         * {
@@ -31,6 +31,33 @@
             text-decoration: none;
         }
 
+        .novel-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px #0001;
+        }
+
+        .novel-cover {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #ddd;
+        }
+
+        .novel-details h1 {
+            margin-top: 0;
+        }
+
+        .novel-details p {
+            color: #666;
+        }
+
         .chapter-list {
             display: grid;
             gap: 12px;
@@ -43,10 +70,38 @@
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 2px 5px #0001;
+            transition: background 0.2s;
         }
 
         .chapter:hover {
             background: #eaf0ff;
+        }
+
+        .chapter h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .empty {
+            color: #666;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 15px;
+            }
+
+            .novel-info {
+                align-items: flex-start;
+            }
+
+            .novel-cover {
+                width: 90px;
+                height: 125px;
+            }
         }
     </style>
 </head>
@@ -57,9 +112,25 @@
 
         <a href="index.html" class="back">← Volver a novelas</a>
 
-        <h1 id="novel-title">Cargando novela...</h1>
+        <!-- NOVEL INFORMATION -->
 
-        <p id="chapter-count"></p>
+        <section class="novel-info">
+
+            <img id="novel-cover" class="novel-cover" alt="Portada de la novela">
+
+            <div class="novel-details">
+
+                <h1 id="novel-title">Cargando novela...</h1>
+
+                <p id="chapter-count"></p>
+
+            </div>
+
+        </section>
+
+        <!-- CHAPTERS -->
+
+        <h2>Capítulos</h2>
 
         <section id="chapter-list" class="chapter-list"></section>
 
@@ -68,48 +139,105 @@
     <script>
 
         const novelTitle = document.getElementById("novel-title");
+        const novelCover = document.getElementById("novel-cover");
         const chapterCount = document.getElementById("chapter-count");
         const chapterList = document.getElementById("chapter-list");
 
-        // Get novel name from URL
+        // =========================
+        // GET URL PARAMETERS
+        // =========================
+
         const params = new URLSearchParams(window.location.search);
+
         const novelName = params.get("novel");
+
+        // =========================
+        // LOAD NOVEL
+        // =========================
 
         async function loadNovel() {
 
             try {
 
-                const response = await fetch("novelas.json");
+                const response = await fetch("database.json");
+
+                if (!response.ok) {
+                    throw new Error("No se pudo cargar database.json");
+                }
+
                 const novels = await response.json();
 
                 // Find selected novel
                 const novel = novels.find(item => item.name === novelName);
 
                 if (!novel) {
+
                     novelTitle.textContent = "Novela no encontrada";
+
+                    novelCover.style.display = "none";
+
                     return;
                 }
 
-                // Display novel information
+                // =========================
+                // NOVEL INFORMATION
+                // =========================
+
+                document.title = novel.name;
+
                 novelTitle.textContent = novel.name;
 
                 chapterCount.textContent =
                     `${novel.chapters.length} capítulos`;
 
-                // Display chapters
+                // Load cover
+                if (novel.image) {
+
+                    novelCover.src =
+                        `novels/${encodeURIComponent(novel.name)}/${encodeURIComponent(novel.image)}`;
+
+                    novelCover.onerror = () => {
+                        novelCover.style.display = "none";
+                    };
+
+                } else {
+
+                    novelCover.style.display = "none";
+
+                }
+
+                // =========================
+                // DISPLAY CHAPTERS
+                // =========================
+
+                chapterList.innerHTML = "";
+
+                if (novel.chapters.length === 0) {
+
+                    chapterList.innerHTML =
+                        '<p class="empty">Esta novela todavía no tiene capítulos.</p>';
+
+                    return;
+                }
+
                 novel.chapters.forEach((chapter, index) => {
 
                     const card = document.createElement("article");
+
                     card.className = "chapter";
 
                     const title = document.createElement("h3");
+
                     title.textContent = chapter.name;
 
                     card.appendChild(title);
 
+                    // Open chapter
                     card.addEventListener("click", () => {
+
                         window.location.href =
                             `capitulo.html?novel=${encodeURIComponent(novel.name)}&chapter=${encodeURIComponent(chapter.name)}`;
+
                     });
 
                     chapterList.appendChild(card);
@@ -119,11 +247,16 @@
             } catch (error) {
 
                 console.error(error);
+
                 novelTitle.textContent = "Error al cargar la novela";
 
             }
 
         }
+
+        // =========================
+        // INITIALIZE
+        // =========================
 
         loadNovel();
 

@@ -8,7 +8,11 @@ import re
 # CONFIGURATION
 # =========================
 
-NOVELS_FOLDER = "novelas"
+NOVELS_FOLDER = "novels"
+CHAPTERS_FOLDER = "chapters"
+OUTPUT_FILE = "database.json"
+
+IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp", ".gif")
 
 
 # =========================
@@ -20,6 +24,13 @@ def natural_sort(value):
         int(part) if part.isdigit() else part.lower()
         for part in re.split(r"(\d+)", value)
     ]
+
+
+# =========================
+# CREATE MAIN FOLDER
+# =========================
+
+os.makedirs(NOVELS_FOLDER, exist_ok=True)
 
 
 # =========================
@@ -35,14 +46,38 @@ for novel in sorted(os.listdir(NOVELS_FOLDER), key=natural_sort):
     if not os.path.isdir(novel_path):
         continue
 
+    # =========================
+    # CREATE CHAPTERS FOLDER
+    # =========================
+
+    chapters_path = os.path.join(novel_path, CHAPTERS_FOLDER)
+
+    os.makedirs(chapters_path, exist_ok=True)
+
+    # =========================
+    # FIND COVER IMAGE
+    # =========================
+
+    image = None
+
+    for file in sorted(os.listdir(novel_path), key=natural_sort):
+
+        if file.lower().endswith(IMAGE_EXTENSIONS):
+
+            image = file
+            break
+
+    # =========================
+    # READ CHAPTERS
+    # =========================
+
     chapters = []
 
-    # Read chapters
-    for file in sorted(os.listdir(novel_path), key=natural_sort):
+    for file in sorted(os.listdir(chapters_path), key=natural_sort):
 
         if file.lower().endswith(".txt"):
 
-            file_path = os.path.join(novel_path, file)
+            file_path = os.path.join(chapters_path, file)
 
             with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -52,8 +87,13 @@ for novel in sorted(os.listdir(NOVELS_FOLDER), key=natural_sort):
                 "content": content
             })
 
+    # =========================
+    # ADD NOVEL
+    # =========================
+
     novels.append({
         "name": novel,
+        "image": image,
         "chapters": chapters
     })
 
@@ -62,8 +102,24 @@ for novel in sorted(os.listdir(NOVELS_FOLDER), key=natural_sort):
 # GENERATE JSON
 # =========================
 
-with open("novelas.json", "w", encoding="utf-8") as f:
-    json.dump(novels, f, ensure_ascii=False, indent=4)
+with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
 
+    json.dump(
+        novels,
+        f,
+        ensure_ascii=False,
+        indent=4
+    )
+
+
+# =========================
+# SUMMARY
+# =========================
 
 print("JSON generated successfully!")
+print(f"Total novels: {len(novels)}")
+
+for novel in novels:
+    print(f"- {novel['name']}: {len(novel['chapters'])} chapters")
+
+print(f"\nOutput file: {OUTPUT_FILE}")
