@@ -123,3 +123,5 @@ for novel in novels:
     print(f"- {novel['name']}: {len(novel['chapters'])} chapters")
 
 print(f"\nOutput file: {OUTPUT_FILE}")
+
+input()
