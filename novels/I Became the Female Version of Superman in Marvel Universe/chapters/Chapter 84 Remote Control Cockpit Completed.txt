@@ -1,0 +1,59 @@
+Lo que Anna y Mai Mai estaban fabricando ahora sería, en un principio, solo una consola y un convertidor de comandos para reemplazar la cabina, lo que permitiría a la pequeña belleza operar la excavadora de forma remota. 
+La idea principal era prescindir de las palancas de cambio, las manijas, los botones, los frenos y las palancas de la cabina tradicional de la excavadora, y utilizar tecnología de red interconectada de alta velocidad y chips para combinar la tecnología de control remoto ya consolidada con el sistema de transmisión de la excavadora para el control remoto. 
+Dado que el objetivo era simplemente permitir que Mai Mai controlara la excavadora de forma remota para que funcionara, el sistema que crearon en realidad tenía muy pocos movimientos y comandos que podía ejecutar en ese momento. 
+Se trataba simplemente de algunos de los movimientos más sencillos del brazo de la excavadora: agarrar, soltar, excavar, sujetar, barrer, etc. 
+Incluso las orugas debajo de la excavadora no estaban integradas con este aparato, sino que estaban incorporadas por separado en dos pedales de tres etapas situados en la parte inferior de los pies. 
+Cada pie controlaba las orugas de un lado de la excavadora. 
+No había marchas; dar un paso hacia adelante significaba avanzar, hacia atrás significaba retroceder, y el punto medio era el freno... 
+Este sistema era algo que las dos niñas pequeñas habían empezado a diseñar y fabricar hacía varios meses. 
+Gracias a las diversas tecnologías públicas del Universo Marvel, la genialidad innata de Mai Mai y el aprendizaje casi tramposo de Anna tras su superinteligencia. 
+Las dos niñas, que ahora tenían el nivel de estudiantes de posgrado principiantes, finalmente lograron terminar casi por completo la tarea. 
+El trabajo de hoy consistió simplemente en una fase de acabado después de que hubieran terminado de fabricarlo. 
+Como Anna solía llevar puesto ese esqueleto metálico lleno de sensores para operar y realizar pruebas, ambos ignoraban su peso. 
+Sin embargo, para el "control remoto de la excavadora" con estos dos brazos mecánicos sobre la mesa, todos los planos ya estaban hechos, y podría ser mucho más ligero si se sustituyera el metal del esqueleto por material acrílico. 
+Mientras Mai Mai preparaba el material acrílico, la fortísima Anna soldó con urgencia un marco circular de hierro de cuatro metros de diámetro. 
+Colocó esta gran estructura de hierro sobre una plataforma giratoria eléctrica controlada a distancia que podía rotar 360 grados, y luego colgó los dos brazos mecánicos cubiertos de sensores en la parte superior de la estructura de hierro mediante un sistema hidráulico retráctil y giratorio. 
+Y un pequeño soporte de brazo hidráulico. 
+Al final, los brazos mecánicos que tenían delante Anna y Mai Mai se convirtieron en dos conjuntos de pesos diferentes. 
+Un modelo era la versión ligera, tras sustituir el material acrílico, que Mai Mai podía usar y manejar sin ayuda durante más de diez minutos gracias a su fuerza física. 
+Esto le permitiría alcanzar el lateral de la excavadora para realizar observaciones de cerca temporales y operarla a distancia. 
+El otro conjunto era el brazo mecánico metálico original, que parecía un brazo mecánico Mark sin placas de blindaje. Debido a su peso, solo Anna podía manejarlo libremente sin ayuda durante mucho tiempo. 
+Sin embargo, ahora, los brazos de este esqueleto metálico estaban suspendidos en el aire bajo la estructura giratoria de hierro mediante unas finas varillas hidráulicas, como si fueran seda de araña, colocadas allí como largos guantes, esperando a que la gente metiera las manos. 
+En aquel momento, sin tener que soportar el peso del brazo mecánico, Mai Mai solo necesitaba meter las manos en esos dos guantes llenos de sensores y usar la fuerza de sus brazos para mover el soporte y la plataforma giratoria y realizar diversos movimientos. 
+De esta forma, la pequeña y bella Mai Mai no solo pudo evitar soportar su propio peso, sino también manejar perfectamente la excavadora a distancia. 
+Una vez finalizada la fijación de los dos brazos mecánicos de metal, Anna comenzó a instalar la silla ergonómica en la que Mai Mai se sentaría durante el funcionamiento en la gran plataforma giratoria. 
+Luego estaba la pequeña mesa de control, el teclado y el ratón, el micrófono y los altavoces estéreo envolventes instalados en esta cabina de operaciones... 
+Y un portavasos específico para colocar Happy Water y café. 
+¡Hmm! ~ 
+Dado que ambos utilizaban a veces esta cabina de mando para jugar, los mandos, los volantes, las palancas de cambio y los joysticks de vuelo también eran esenciales. 
+En cuanto se volteaba el pequeño tablero de la mesa, la cabina de control podía cambiar instantáneamente del modo de productividad con teclado y ratón al modo de juego. 
+También había que colocar sobre la mesa un botón de lanzamiento rojo, que se encontraba en una caja de plástico transparente con una etiqueta de advertencia amarilla. 
+Esto podría usarse para lanzar misiles durante los juegos. 
+... 
+Finalmente, al instalar un círculo de pantallas envolventes en un rango de 270 grados frente al asiento de esta cabina de operaciones circular de cuatro metros de diámetro, y después de conectar todos los cables y fijar toda la transmisión de señal, se completó el centro de control remoto de Mai Mai. 
+Por supuesto. 
+Debido a la extrema pobreza que existía en ese momento, el ordenador y el procesamiento de señales para esta cabina de operaciones dependían completamente del centro de control por satélite que las dos madres habían instalado en la Habitación Subterránea. 
+Tras finalizar este sistema de cabina de mando a distancia, el resto fue un arduo trabajo manual que recayó únicamente en Anna. 
+Precisamente en ese momento, la eficiente empresa de ventas también entregó dos excavadoras nuevas a Anna utilizando un camión de plataforma. 
+Luego, llegó el momento de desmontar estas dos excavadoras en piezas. 
+Las dos cabinas fueron desechadas, al igual que el chasis original. 
+Al final, solo se conservaron los dos brazos excavadores, los dos motores, los embragues, las plataformas giratorias y los sistemas de control correspondientes. 
+Tras desmontar todas esas piezas, Anna sacó el chasis de una gran excavadora de un rincón del granero. 
+Este gran chasis era algo que ella ya había fabricado siguiendo los planos que ambas diseñaron antes de que ella fuera a Afganistán. 
+El objetivo era integrar los dos motores de la excavadora, sus correspondientes embragues, plataformas giratorias, suspensión, orugas y dos brazos mecánicos en una única base. 
+Luego, transforma la excavadora de un solo brazo montada sobre este chasis en un cangrejo mecánico gigante con dos motores y dos brazos. 
+Lógicamente hablando, sería muy difícil construir un chasis de este tipo, porque este tipo de estructura mecánica de gran tamaño no se puede simplemente ampliar. 
+Cuanto mayor sea el chasis, mayores serán los requisitos de resistencia del material. 
+Aumentar indiscriminadamente el grosor de los materiales metálicos solo reduciría drásticamente la potencia del motor. 
+Esto requiere mucha experimentación, basada en las propiedades del metal, para lograr los mejores resultados. 
+Es necesario tener en cuenta los depósitos de combustible, las tuberías y los cojinetes. 
+Además, cosas como la tensión y la fatiga del metal simplemente no son algo que una niña pequeña como Anna pueda soportar. 
+Pero, ¿quiénes eran los kryptonianos más hábiles en la forja de metales a gran escala? Cualquier pieza de metal de gran tamaño se puede moldear a mano. 
+Además, mientras trabajaba en este chasis, tenía a su disposición algo que era la trampa definitiva en el Universo Marvel. 
+Esa era la gran pila de mineral de vibranio que Anna tenía almacenada en el almacén. 
+Esta es la solución definitiva en el Universo Marvel para superar los límites de los materiales metálicos ordinarios. 
+¿Qué ocurre si la resistencia del armazón no es suficiente? 
+¡Añade algo de vibranio! 
+¡Ah! ~ Los resortes y los ejes de transmisión tampoco parecen funcionar bien... 
+¡Está bien, añade algo de vibranio! 
+Por lo tanto, en términos de dificultad de fabricación para este chasis mecánico, el sistema de Anna era en realidad mucho más sencillo que el brazo teledirigido anterior. 
